@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Calendario</title>
+    <title>SECT telecomunicaciones</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="js/jquery.min.js"></script>
     <script src="js/moment.min.js"></script>
@@ -48,9 +48,20 @@
             events:'http://localhost/SECT/eventos.php',
           
             eventClick:function(calEvent,jsEvent,view){
+                //h5
                 $('#tituloEvento').html(calEvent.title);
-                $('#descripcionEvento').html(calEvent.descripcion);
-                $('#exampleModal').modal();
+                //mostra la informacion del evento en los inputs
+                $('#txtDescripcion').val(calEvent.descripcion);
+                $('#txtID').val(calEvent.id);
+                $('#txtTitulo').val(calEvent.title);
+                $('#txtColor').val(calEvent.color);
+
+                FechaHora= calEvent.start._i.split(" ");
+                $('#txtFecha').val(FechaHora[0]);
+                $('#txtHora').val(FechaHora[1]);
+
+
+                $('#ModalEventos').modal();
             }
             
 
@@ -59,28 +70,8 @@
 
     
 </script>    
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="tituloEvento"></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-         <div id="descripcionEvento"></div>
-        </div>
-        <div class="modal-footer">
-                <button type="button" class="btn btn-success" >Agrega</button>
-                <button type="button" class="btn btn-success" >Modificar</button>
-                <button type="button" class="btn btn-danger">Borrar</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-         </div>
-      </div>
-    </div>
-  </div>
+
+
   <!-- Modal(Agregar,modificar y eliminar) -->
 <div class="modal fade" id="ModalEventos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -92,8 +83,7 @@
           </button>
         </div>
         <div class="modal-body">
-         <div id="descripcionEvento"></div>
-
+         Id:<input type="text" id="txtID" name="txtID"><br/>       
          Fecha: <input type="text" id="txtFecha" name="txtFecha" /><br/>
          Titulo: <input type="text" id="txtTitulo"><br/>
          Hora: <input type="text" id="txtHora" value="10:30" /><br/> 
@@ -104,24 +94,55 @@
         <div class="modal-footer">
                 <button type="button" id="btnAgregar"  class="btn btn-success" >Agregar</button>
                 <button type="button" class="btn btn-success" >Modificar</button>
-                <button type="button" class="btn btn-danger">Borrar</button>
+                <button type="button" id ="btnEliminar" class="btn btn-danger">Borrar</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
          </div>
       </div>
     </div>
   </div>
-  <script>
-      $('#btnAgregar').click(function(){
-          var NuevoEvento={
+<script>
+var NuevoEvento;
+        $('#btnAgregar').click(function(){
+             RecolectarDatosGUI();
+             EnviarInformacion('agregar', NuevoEvento);
+
+     });   
+     
+        $('#btnEliminar').click(function(){
+             RecolectarDatosGUI();
+             EnviarInformacion('eliminar', NuevoEvento); 
+      });
+
+      function RecolectarDatosGUI(){
+             NuevoEvento={
+              id:$('#txtID').val(),
               title:$('#txtTitulo').val(),
               start:$('#txtFecha').val()+" "+$('#txtHora').val(),
               color:$('#txtColor').val(),
               descripcion:$('#txtDescripcion').val(),
-              textColor:"white"
-          };
-          $('#CalendarioWeb').fullCalendar('renderEvent',NuevoEvento);
-          $("#ModalEventos").modal('toggle');
-      });
+              textColor:"red",
+              end:$('#txtFecha').val()+" "+$('#txtHora').val()
+              
+          };  
+      }
+      
+      function EnviarInformacion(accion, objEvento){
+          $.ajax({
+              type:'POST',
+              url:'eventos.php?accion='+accion,
+              data:objEvento,
+              success: function(msg){
+                  if(msg){
+                    $('#CalendarioWeb').fullCalendar('refetchEvents');
+                    $("#ModalEventos").modal('toggle');
+                  }
+              },
+              error:function(){
+                  alert("alerta");
+              }
+          });
+      }
+
   </script>
 </body>
 </html>
