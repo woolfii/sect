@@ -33,7 +33,25 @@ switch($accion){
         echo json_encode($respuesta);
         break;
     case 'modificar': 
-        echo "intruccion modificar";
+        $sentenciaSQL = $pdo->prepare("update eventos set
+        title=:title,
+        start=:start,
+        color=:color,
+        descripcion=:descripcion, 
+        textColor=:textColor,
+        end=:end
+        where ID=:ID
+        ");
+        $respuesta = $sentenciaSQL-> execute(array(
+            "ID" => $_POST['id'],
+            "title" => $_POST['title'],
+            "start" => $_POST['start'],
+            "color" => $_POST['color'],
+            "descripcion" => $_POST['descripcion'],
+            "textColor" => $_POST['textColor'],   
+            "end" => $_POST['end']   
+        ));
+        echo json_encode($respuesta);
          break;       
     default:
        //seleccionar los eventos del calendario
