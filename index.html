@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="css/fullcalendar.min.css">
     <script src="js/fullcalendar.min.js"></script>
     <script src="js/es.js"></script>
+    <script src="js/bootstrap-clockpicker.js"></script>
+    <link rel="stylesheet" href="css/bootstrap-clockpicker.css">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
@@ -20,7 +23,7 @@
    <div class="container"> 
         <div class="row">
             <div class="col">  </div>
-            <div class="col-7"> <div id="CalendarioWeb"></div></div>
+            <div class="col-7"><br><br> <div id="CalendarioWeb"></div></div>
             <div class="col"></div>
             </div>
             </div>>
@@ -41,6 +44,12 @@
                 }
             },
             dayClick:function(date, jsEvent, view){  
+
+                $('#btnAgregar').prop("disabled",false);
+                $('#btnModificar').prop("disabled",true);
+                $('#btnEliminar').prop("disabled",true);
+
+                limpiarFormulario();
                 $('#txtFecha').val(date.format());
                 $("#ModalEventos").modal();
             },
@@ -48,6 +57,10 @@
             events:'http://localhost/SECT/eventos.php',
           
             eventClick:function(calEvent,jsEvent,view){
+                $('#btnAgregar').prop("disabled",true);
+                $('#btnModificar').prop("disabled",false);
+                $('#btnEliminar').prop("disabled",false);
+
                 //h5
                 $('#tituloEvento').html(calEvent.title);
                 //mostra la informacion del evento en los inputs
@@ -62,6 +75,20 @@
 
 
                 $('#ModalEventos').modal();
+            },
+            editable:true,
+            eventDrop:function(calEvent){
+                $('#txtDescripcion').val(calEvent.descripcion);
+                $('#txtID').val(calEvent.id);
+                $('#txtTitulo').val(calEvent.title);
+                $('#txtColor').val(calEvent.color);
+                
+                var fechaHora = calEvent.start.format().split("T");
+                $('#txtFecha').val(fechaHora[0]);
+                $('#txtHora').val(fechaHora[1]);
+
+                RecolectarDatosGUI();
+                EnviarInformacion('modificar', NuevoEvento, true); 
             }
             
 
@@ -83,13 +110,31 @@
           </button>
         </div>
         <div class="modal-body">
-         Id:<input type="text" id="txtID" name="txtID"><br/>       
-         Fecha: <input type="text" id="txtFecha" name="txtFecha" /><br/>
-         Titulo: <input type="text" id="txtTitulo"><br/>
-         Hora: <input type="text" id="txtHora" value="10:30" /><br/> 
-         Descripcion: <textarea id="txtDescripcion" rows="3" ></textarea><br/>
-         Color: <input type="color" value="yellow" id="txtColor" ><br/>
-
+           
+         <input type="hidden" id="txtID" name="txtID">      
+          <input type="hidden" id="txtFecha" name="txtFecha" />
+        <div class="form-row">
+                <div class="form-group col-md-8">
+                    <label>Titulo:</label>
+             <input type="text" id="txtTitulo" class="form-control" placeholder="titulo del evento">
+                </div>
+                <div class="form-group col-md-4">
+                        <label>Hora del Evento:</label>
+                        <div class="input-group clockpicker" data-autoclose="true">
+                        <input type="text" id="txtHora" value="10:30" class="form-control" />
+                        </div>
+                </div>
+            </div>
+            <div class="form-group" >
+                <label>Descripcion:</label>
+                <textarea id="txtDescripcion" rows="3"  class="form-control"></textarea>
+            </div>
+            <div class="form-group" >
+                    <label>Color:</label>
+                <input type="color" value="yellow" id="txtColor" class="form-control" style="height:36px;">
+    
+            </div>
+          
         </div>
         <div class="modal-footer">
                 <button type="button" id="btnAgregar"  class="btn btn-success" >Agregar</button>
@@ -131,7 +176,7 @@ var NuevoEvento;
           };  
       }
       
-      function EnviarInformacion(accion, objEvento){
+      function EnviarInformacion(accion, objEvento,modal){
           $.ajax({
               type:'POST',
               url:'eventos.php?accion='+accion,
@@ -139,15 +184,26 @@ var NuevoEvento;
               success: function(msg){
                   if(msg){
                     $('#CalendarioWeb').fullCalendar('refetchEvents');
-                    $("#ModalEventos").modal('toggle');
+                    if(!modal){
+                        $("#ModalEventos").modal('toggle');
+                    }
+                    
                   }
               },
               error:function(){
-                  alert("hay un error!");
+                  alert("Ocurrio un error, verifica que has llenado correctamente la informacion!");
               }
           });
       }
 
+$('.clockpicker').clockpicker();
+function limpiarFormulario(){
+                $('#txtDescripcion').val('');
+                $('#txtID').val('');
+                $('#txtTitulo').val('');
+                $('#txtColor').val('');
+}
   </script>
+
 </body>
 </html>
