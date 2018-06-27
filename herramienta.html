@@ -23,13 +23,12 @@
         </div>
             <nav>
                     <ul>
-                    <li><a href="agenda.html"><span class="icon-calendar"></span> Agenda</a></li>
-					<li><a href="index.html"><span class="icon-linkedin2"></span> Material</a></li>
-					<li><a href="index.html"><span class="icon-linkedin2"></span> Eventos</a></li>
-					<li><a href="index.html"><span class="icon-linkedin2"></span> Inventario</a></li>
-                    <li><a href="historial.html"><span class="icon-file-text"></span> Historial</a></li>
-                    <li><a href="clientes.html"><span class="icon-profile"></span> clientes</a></li>
-
+                    <li><a href="agenda.html"><span class="icon-calendar"></span>  Agenda</a></li>
+					<li><a href="material.html"><span class="icon-linkedin2"></span>  Materiales</a></li>
+					<li><a href="eventos.html"><span class="icon-linkedin2"></span>  Eventos</a></li>
+					<li><a href="herramienta.html"><span class="icon-linkedin2"></span>  Herramientas</a></li>
+                    <li><a href="clientes.html"><span class="icon-profile"></span>  clientes</a></li>
+					<li><a href="historial.html"><span class="icon-file-text"></span>  Historial</a></li>
                     </ul>
                     </nav>
                     
@@ -79,15 +78,11 @@
 				<h3 class="text-center"> <small class="mensaje"></small></h3>
 			</div>
 			<div class="table-responsive col-sm-12">		
-				<table id="dt_eventos" class="table table-bordered table-hover" cellspacing="0" width="100%">
+				<table id="dt_h" class="table table-bordered table-hover" cellspacing="0" width="100%">
 					<thead>
-						<tr>								
-							<th>Evento</th>
-							<th>Material</th>
-							<th>Fecha</th>
-							<th>Meses</th>
-							<th>Cliente</th>
-							<th>Descripcion</th>
+						<tr>
+							<th>Nombre</th>								
+							<th>Cantidad</th>
 							<th></th>											
 						</tr>
 					</thead>					
@@ -146,19 +141,15 @@
 		});
 
 		var listar = function(){
-			var table = $("#dt_eventos").DataTable({
+			var table = $("#dt_h").DataTable({
 				"destroy":true,
 				"ajax":{
 					"method":"POST",
-					"url": "listar.php"
+					"url": "listh.php"
 				},
 				"columns":[
-					{"data":"tipo"},
-					{"data":"material"},
-					{"data":"fecha"},
-					{"data":"meses"},
-					{"data":"cliente"},
-					{"data":"descripcion"}
+					{"data":"nombre"},
+					{"data":"cantidad"}
 				],
 				"language":idioma_espanol
 			});
