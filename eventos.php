@@ -9,18 +9,19 @@ switch($accion){
     //echo("agregaciontl");
     
          $sentenciaSQL = $pdo->prepare("INSERT INTO eventos 
-         (id_evento,meses,descripcion,color,textcolor,cliente,material,tipo,fecha) values
-         (:id_evento,:meses,:descripcion,:color,:textcolor,:cliente,:material,:tipo,:fecha)");
+         (id_evento, fecha, meses, descripcion,color,textcolor,cliente,material,tipo) values
+         (:id_evento, :fecha, :meses, :descripcion, :color, :textcolor, :cliente, :material, :tipo)");
         $respuesta = $sentenciaSQL-> execute(array(
             "id_evento" => $_POST['id_evento'],
+            "fecha" => $_POST['fecha'],
             "meses" => $_POST['meses'],
             "descripcion" => $_POST['descripcion'],
             "color" => $_POST['color'],
             "textcolor" => $_POST['textcolor'],
             "cliente" => $_POST['cliente'],
             "material" => $_POST['material'],
-            "tipo" => $_POST['tipo'],
-            "fecha" => $_POST['fecha']                                  
+            "tipo" => $_POST['tipo']
+                                           
         ));
       
         echo json_encode($respuesta);

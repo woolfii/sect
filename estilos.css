@@ -14,7 +14,7 @@ header nav {
 	width:90%;
 	max-width:1000px;
 	margin:10px auto;
-	background:#5d5d5e;
+	background:blue;
 }
  
 .menu_bar {
@@ -73,7 +73,7 @@ section {
 	.menu_bar .bt-menu {
 		display:block;
 		padding:20px;
-		background:#a84192;
+		background:#060014;
 		color:#fff;
 		text-decoration:none;
 		font-weight: bold;
