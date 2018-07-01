@@ -6,48 +6,25 @@ $accion= (isset($_GET['accion']))?$_GET['accion']:'leer';
 
 switch($accion){
     case 'agregar':
-    //echo("agregaciontl");
-    
-         $sentenciaSQL = $pdo->prepare("INSERT INTO eventos 
-         (id_evento, fecha, meses, descripcion,color,textcolor,cliente,material,tipo) values
-         (:id_evento, :fecha, :meses, :descripcion, :color, :textcolor, :cliente, :material, :tipo)");
-        $respuesta = $sentenciaSQL-> execute(array(
-            "id_evento" => $_POST['id_evento'],
-            "fecha" => $_POST['fecha'],
-            "meses" => $_POST['meses'],
+        $sentenciaSQL = $pdo->prepare("insert into eventos(id,title,start,descripcion,
+        color,textColor,end,meses,cliente,material) values(:id,:title,:start,
+        :descripcion,:color,:textColor,:end,:meses,:cliente,:material)");
+       
+       $respuesta = $sentenciaSQL-> execute(array(
+            "id" => $_POST['id'],
+            "title" => $_POST['title'],
+            "start" => $_POST['start'],
             "descripcion" => $_POST['descripcion'],
             "color" => $_POST['color'],
-            "textcolor" => $_POST['textcolor'],
-            "cliente" => $_POST['cliente'],
-            "material" => $_POST['material'],
-            "tipo" => $_POST['tipo']
-                                           
+            "textColor" => $_POST['textColor'],   
+            "end" => $_POST['end'],
+            "meses" => $_POST['meses'],
+            "cliente"=> $_POST['cliente'],
+            "material"=> $_POST['material']
         ));
-      
         echo json_encode($respuesta);
         break;
-       
-           /*
-            "id_evento" => $_POST['id_evento'],
-            "tipo" => $_POST['tipo'],
-            "material" => $_POST['material'],
-            "meses" => $_POST['meses'],
-            "cliente" => $_POST['cliente'], 
-            "fecha" => $_POST['fecha'],                   
-            "color" => $_POST['color'],
-            "descripcion" => $_POST['descripcion'],
-            "textColor" => $_POST['textColor'] 
-        "tipo" =>"venta",
-        "material" => "material",
-        "id_evento" => "2",
-        "meses" => "6",
-        "cliente" => "clientaso",                   
-        "color" => "#fffff",
-        "descripcion" => "desc",
-        "textColor" => "#ff0000" */     
-        
-        
-    /*
+    
     case 'eliminar':
         $respuesta = false;
 
@@ -58,12 +35,16 @@ switch($accion){
         }
         echo json_encode($respuesta);
         break;
+
     case 'modificar': 
         $sentenciaSQL = $pdo->prepare("update eventos set
         title=:title,
         start=:start,
         color=:color,
-        descripcion=:descripcion, 
+        descripcion=:descripcion,
+        meses=:meses,
+        cliente=:cliente,
+        material=:material, 
         textColor=:textColor,
         end=:end
         where ID=:ID
@@ -74,20 +55,22 @@ switch($accion){
             "start" => $_POST['start'],
             "color" => $_POST['color'],
             "descripcion" => $_POST['descripcion'],
+            "meses" => $_POST['meses'],
+            "cliente"=> $_POST['cliente'],
+            "material"=> $_POST['material'],
             "textColor" => $_POST['textColor'],   
             "end" => $_POST['end']   
         ));
         echo json_encode($respuesta);
-         break;     */
+         break;       
     default:
        //seleccionar los eventos del calendario
-       /*
          $sentenciaSQL = $pdo->prepare("SELECT * FROM eventos");
          $sentenciaSQL -> execute();
 
          $resultado = $sentenciaSQL->fetchAll(PDO::FETCH_ASSOC);
-         echo json_encode($resultado);*/
-         break; 
+         echo json_encode($resultado);
+         break;
 }
 
 
