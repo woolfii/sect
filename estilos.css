@@ -11,10 +11,10 @@ header {
 }
  
 header nav {
-	width:90%;
+	width:100%;
 	max-width:1000px;
 	margin:10px auto;
-	background:blue;
+	background:rgb(4, 3, 88);
 }
  
 .menu_bar {

@@ -11,13 +11,46 @@
 
     switch($opcion){
         case 'registrar':
+            if( $nombre != "" && $existencia != "" && $rentados != "" && $disponibles !=""){
+                 $existe = existe_material($nombre, $conexion);
+                if($existe >0){
+                    $informacion["respuesta"]="EXISTE";
+                    echo json_encode($informacion);
+                }else{
+                    registrar($nombre,$existencia,$rentados,$disponibles, $conexion);
+            }
+                            
+            }else{
+            $informacion["respuesta"] = "VACIO";
+                echo json_encode($informacion);
+            }
+            break;
+        case 'modificar':
             modificar($id_material, $nombre, $existencia, $rentados,  $disponibles, $conexion  );
             break;
         
         case 'eliminar':
             eliminar($id_material,$conexion);
             break;
+
+        default:
+        $informacion["respuesta"]= "OPCION VACIA";
+            break;
     }
+
+    function existe_material($nombre, $conexion){
+		$query = "SELECT id_material FROM materiales WHERE nombre = '$nombre';";
+		$resultado = mysqli_query($conexion, $query);
+		$existe_material = mysqli_num_rows( $resultado );
+		return $existe_material;
+	}
+
+	function registrar($nombre,$existencia,$rentados,$disponibles, $conexion){
+		$query = "INSERT INTO materiales VALUES(0, '$nombre', '$existencia', '$rentados','$disponibles');";
+		$resultado = mysqli_query($conexion, $query);		
+		verificar_resultado($resultado);
+		cerrar($conexion);
+	}
 
     function modificar( $id_material, $nombre, $existencia, $rentados,  $disponibles, $conexion  ){
        $query = "UPDATE materiales SET nombre='$nombre',

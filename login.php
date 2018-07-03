@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>esteban</title>
+	<title>Entrando a SECT-sistem</title>
 </head>
 <body>
 
@@ -30,10 +30,10 @@ try{
 			session_start();
 			$_SESSION["usuario"]=$_POST["login"];
 
-			header("Location:index.html");	
+			header("Location:agenda.html");	
 
 		}else{
-            echo "<script type=\"text/javascript\">alert(\"error verifica usuario y contrasenia\");</script>";
+			echo '<script type="text/javascript">'; echo 'alert("Error al crear sugerencia")'; echo '</script>';
 			header("location:signup.html");
 		}
 
