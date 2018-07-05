@@ -56,6 +56,7 @@
 <script>
     $(document).ready(function(){
         $('#CalendarioWeb').fullCalendar({
+            aspectRatio: 2,
             header:{
                 left:'title',
                 center:'today, prev,next',
@@ -148,7 +149,7 @@
         <div class="form-row">
                 <div class="form-group col-md-8">
                     <label>Titulo:</label>
-             <input type="text" id="txtTitulo" class="form-control" placeholder="titulo del evento">
+             <input type="text" id="txtTitulo" class="form-control" placeholder="titulo del evento" required>
                 </div>
                 <div class="form-group col-md-4">
                         <label>Hora del Evento:</label>
@@ -195,19 +196,33 @@
 <script>
 var NuevoEvento;
         $('#btnAgregar').click(function(){
+            title= $('#txtTitulo').val()
+            if(title==""){
+                alert("Necesitas minimamente brindar un titulo al evento!");
+            }
+            else{
              RecolectarDatosGUI();
-             EnviarInformacion('agregar', NuevoEvento);
-
+              EnviarInformacion('agregar', NuevoEvento);      
+            }
+             
      });   
      
         $('#btnEliminar').click(function(){
+           
              RecolectarDatosGUI();
              EnviarInformacion('eliminar', NuevoEvento); 
+                
       });
         
         $('#btnModificar').click(function(){
+            title= $('#txtTitulo').val()
+            if(title==""){
+                alert("Necesitas minimamente brindar un titulo al evento!");
+            }
+            else{
              RecolectarDatosGUI();
              EnviarInformacion('modificar', NuevoEvento); 
+             }
       });
 
       function RecolectarDatosGUI(){
@@ -217,17 +232,16 @@ var NuevoEvento;
               start:$('#txtFecha').val()+" "+$('#txtHora').val(),
               color:$('#txtColor').val(),
               descripcion:$('#txtDescripcion').val(),
-              textColor:"red",
+              textColor:"white",
               cliente:$('#txtCliente').val(),
               meses:$('#txtMeses').val(),
               material:$('#txtMaterial').val(),
               end:$('#txtFecha').val()+" "+$('#txtHora').val()
-              
+             
           };  
       }
       
       function EnviarInformacion(accion, objEvento,modal){
-        console.log(NuevoEvento);
           $.ajax({
               type:'POST',
               url:'eventos.php?accion='+accion,

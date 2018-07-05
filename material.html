@@ -155,6 +155,7 @@
 			listar();
 		});
 
+
 		var guardar = function(){
 			$("form").on("submit",function(e){
 					e.preventDefault();
@@ -182,13 +183,14 @@
 					url:"guardar.php",
 					data:{"id_material":id_material,"opcion":opcion}
 				}).done(function(info){
-					var json_info = JSON.parse(info);
-					mostrar_mensaje(json_info);
-					limpiar_datos();
-					listar();
-				});
+						var json_info = JSON.parse(info);
+						mostrar_mensaje(json_info);
+						limpiar_datos();
+						listar();
+					});
 			});
 		}
+		
 
 		var mostrar_mensaje = function( informacion ){
 		var texto = "", color = "";
