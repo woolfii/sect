@@ -12,11 +12,14 @@ header {
  
 header nav {
 	width:100%;
-	max-width:1000px;
-	margin:10px auto;
-	background:rgb(88, 3, 3);
+/*	max-width:1000px;
+	margin:10px auto;*/
+	background:rgb(8, 2, 39);
 }
- 
+.container{
+	z-index:1;
+}
+
 .menu_bar {
 	display:none;
 }
@@ -29,7 +32,9 @@ header nav ul {
 header nav ul li {
 	float:left;
 }
- 
+header li{
+	width: calc(100% /7 ); /* para que se simetricen los submenus */
+} 
 header nav ul li a {
 	color:#fff;
 	padding:20px;
@@ -37,11 +42,11 @@ header nav ul li a {
 	text-decoration:none;
 }
  
-header nav ul li span {
+header nav ul li span {/*margen para los iconos*/
 	margin-right:10px;
 }
- /*color con click over */
-header nav ul li a:hover {
+
+header nav ul li a:hover { /*color con click over */
 	background:rgb(212, 212, 212);
 }
  
@@ -49,31 +54,34 @@ section {
 	padding:20px;
 }
  
-@media screen and (max-width:800px ) {
+@media screen and (max-width:900px ) {
 	header nav {
-		width:80%;
+		width:40%;
 		height:100%;
 		left:-100%;
 		margin:0;
 		position: fixed;
+		z-index:2;
 	}
  
 	header nav ul li {
 		display:block;
 		float:none;
 		border-bottom:1px solid rgba(255,255,255, .3);
+		z-index:2;
 	}
  
 	.menu_bar {
 		display:block;
 		width:100%;
 		background:#ccc;
+		z-index:2;
 	}
  
 	.menu_bar .bt-menu {
 		display:block;
 		padding:20px;
-		background:#060014;
+		background:rgb(8, 2, 39);
 		color:#fff;
 		text-decoration:none;
 		font-weight: bold;
@@ -81,10 +89,13 @@ section {
 		-webkit-box-sizing:border-box;
 		-moz-box-sizing:border-box;
 		box-sizing:border-box;
+		z-index:2;
+
 	}
  
 	.menu_bar span {
 		float:right;
 		font-size:40px;
+		z-index:2;
 	}
 }
