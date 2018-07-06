@@ -1,19 +1,21 @@
 <?php
 include("conexion.php");
 
-    $id_herramienta = $_POST["id_herramienta"];
+    $id_cliente = $_POST["id_cliente"];
     $nombre = $_POST["nombre"];
-    $cantidad = $_POST["cantidad"];
+    $correo = $_POST["correo"];
+    $telefono = $_POST["telefono"];
+    $rfc = $_POST["rfc"];
     $opcion = $_POST["opcion"];
 switch($opcion){
         case 'registrar':
-            if( $nombre != "" && $cantidad != ""){
-                 $existe = existe_herramienta($nombre, $conexion);
+            if( $nombre != "" && $correo != "" && $telefono != "" && $rfc != ""){
+                 $existe = existe_cliente($nombre, $conexion);
                 if($existe >0){
                     $informacion["respuesta"]="EXISTE";
                     echo json_encode($informacion);
                 }else{
-                    registrar($nombre,$cantidad,$conexion);
+                    registrar($nombre,$rfc,$correo,$telefono, $conexion);
             }
                             
             }else{
@@ -22,11 +24,11 @@ switch($opcion){
             }
             break;
         case 'modificar':
-            modificar($id_herramienta, $nombre, $cantidad, $conexion  );
+            modificar( $id_cliente,$nombre,$rfc,$correo,$telefono, $conexion);
             break;
         
         case 'eliminar':
-            eliminar($id_herramienta,$conexion);
+            eliminar($id_cliente,$conexion);
             break;
 
         default:
@@ -34,30 +36,32 @@ switch($opcion){
             break;
     }
 
-    function existe_herramienta($nombre, $conexion){
-		$query = "SELECT id_herramienta FROM herramientas WHERE nombre = '$nombre';";
+    function existe_cliente($nombre, $conexion){
+		$query = "SELECT id_cliente FROM clientes WHERE nombre = '$nombre';";
 		$resultado = mysqli_query($conexion, $query);
-		$existe_herramienta = mysqli_num_rows( $resultado );
-		return $existe_herramienta;
+		$existe_cliente= mysqli_num_rows( $resultado );
+		return $existe_cliente;
 	}
 
-	function registrar($nombre,$cantidad, $conexion){
-		$query = "INSERT INTO herramientas VALUES(0, '$nombre', '$cantidad');";
+	function registrar($nombre,$rfc,$correo,$telefono,  $conexion){
+		$query = "INSERT INTO clientes VALUES(0, '$nombre','$rfc', '$correo', '$telefono' );";
 		$resultado = mysqli_query($conexion, $query);		
 		verificar_resultado($resultado);
 		cerrar($conexion);
 	}
 
-    function modificar( $id_herramienta, $nombre, $cantidad, $conexion  ){
-       $query = "UPDATE herramientas SET nombre='$nombre',
-                                        cantidad = '$cantidad'
-                                    WHERE id_herramienta = $id_herramienta ";
+    function modificar( $id_cliente,$nombre,$rfc,$correo,$telefono, $conexion){
+       $query = "UPDATE clientes SET nombre='$nombre',
+                                        rfc = '$rfc',
+                                        correo = '$correo',
+                                        telefono= '$telefono'
+                                    WHERE id_cliente = $id_cliente ";
         $resultado = mysqli_query($conexion,$query);
         verificar_resultado($resultado);
         cerrar($conexion);  
     }
-    function eliminar($id_herramienta,$conexion){
-        $query = "DELETE FROM herramientas WHERE id_herramienta = $id_herramienta ";
+    function eliminar($id_cliente,$conexion){
+        $query = "DELETE FROM clientes WHERE id_cliente = $id_cliente ";
         $resultado = mysqli_query($conexion,$query);
         verificar_resultado($resultado);
         cerrar($conexion);  

@@ -16,6 +16,10 @@ header nav {
 	margin:10px auto;*/
 	background:rgb(8, 2, 39);
 }
+body{
+	background-color:rgb(240, 233, 233);
+	z-index:-1 ;
+}
 .container{
 	z-index:1;
 }
