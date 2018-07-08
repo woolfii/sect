@@ -17,20 +17,28 @@
 
 </head>
 <body>
+<?php
+			session_start();
+			if(isset($_SESSION['u_usuario'])){
+			}
+			else{
+				header("location: signup.html");
+			}
+	?>
 	<header>
         <div class="menu_bar">
             <a href="#" class="bt-menu"><span class="icon-menu3"></span> MENU </a>
         </div>
 		<nav>
-				<ul>
-				<li><a href="agenda.html"><span class="icon-calendar"></span>Agenda</a></li>
-				<li><a href="eventos.html"><span class="icon-linkedin2"></span>Eventos</a></li>
-				<li><a href="clientes.html"><span class="icon-profile"></span>clientes</a></li>
-				<li><a href="material.html"><span class="icon-linkedin2"></span>Materiales</a></li>
-				<li><a href="herramienta.html"><span class="icon-linkedin2"></span>Herramientas</a></li>
-				<li><a href="historial.html"><span class="icon-file-text"></span>Historial</a></li>
-				<li><a href="signup.html"><img src="">SALIR</a></li>
-				</ul>
+		<ul>
+                            <li><a href="agenda.php"><span class="icon-calendar"></span>Agenda</a></li>
+                            <li><a href="eventoslist.php"><span class="icon-linkedin2"></span>Eventos</a></li>
+                            <li><a href="clientes.php"><span class="icon-profile"></span>Clientes</a></li>
+                            <li><a href="material.php"><span class="icon-linkedin2"></span>Materiales</a></li>
+                            <li><a href="herramienta.php"><span class="icon-linkedin2"></span>Herramientas</a></li>
+                            <li><a href="historial.php"><span class="icon-file-text"></span>Historial</a></li>
+                            <li><a href="cerrar_sesion.php"><img src="">SALIR</a></li>
+                            </ul>
 				</nav>
     </header>
   <script src="http://code.jquery.com/jquery-latest.js"></script>

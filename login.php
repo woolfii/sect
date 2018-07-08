@@ -1,48 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Entrando a SECT-sistem</title>
-</head>
-<body>
-
-
 <?php
 
-try{
-		$base=new PDO("mysql:host=localhost; dbname=sectdb", "root", "");
-		$base->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+session_start();
 
-		$sql="SELECT * FROM usuarios WHERE nombre  = :login AND contrasenia= :password";
+$usuario = $_POST['usuario'];
+$contrasenia = $_POST['contrasenia'];
 
-		$resultado=$base->prepare($sql);
-		$login=htmlentities(addslashes($_POST["login"]));
-		$password=htmlentities(addslashes($_POST["password"]));
-		$resultado->bindValue(":login", $login);
-		$resultado->bindValue(":password", $password);
-		$resultado->execute();
-		$numero_registro=$resultado->rowCount();
 
-		if($numero_registro!=0){
+include("conexion.php");
 
-			//echo"<h2>dk</h2";
+$proceso = $conexion->query("SELECT * FROM usuarios WHERE usuario='$usuario' AND contrasenia= '$contrasenia' ");
+	if($resultado = mysqli_fetch_array($proceso)){
+		$_SESSION['u_usuario'] = $usuario;
+		header("location: agenda.php");
+	}
+	else{
+		
+		header("location: signup.html");
 
-			session_start();
-			$_SESSION["usuario"]=$_POST["login"];
-
-			header("Location:agenda.html");	
-
-		}else{
-			echo '<script type="text/javascript">'; echo 'alert("Error al crear sugerencia")'; echo '</script>';
-			header("location:signup.html");
-		}
-
-}catch(Exception $e){
-	die("error: ". $e->getMessage());
-}
+	}
 
 
 
-?>	
-</body>
-</html>
+
+?>
