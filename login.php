@@ -9,6 +9,7 @@ $contrasenia = $_POST['contrasenia'];
 include("conexion.php");
 
 $proceso = $conexion->query("SELECT * FROM usuarios WHERE usuario='$usuario' AND contrasenia= '$contrasenia' ");
+
 	if($resultado = mysqli_fetch_array($proceso)){
 		$_SESSION['u_usuario'] = $usuario;
 		header("location: agenda.php");

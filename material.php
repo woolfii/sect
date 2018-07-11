@@ -190,8 +190,8 @@
 					url:"guardar.php",
 					data:{"id_material":id_material,"opcion":opcion}
 				}).done(function(info){
-						var json_info = JSON.parse(info);
-						mostrar_mensaje(json_info);
+						//var json_info = JSON.parse(info);
+						//mostrar_mensaje(json_info);
 						limpiar_datos();
 						listar();
 					});

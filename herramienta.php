@@ -174,8 +174,8 @@
 					url:"guardarherramienta.php",
 					data:{"id_herramienta":id_herramienta,"opcion":opcion}
 				}).done(function(info){
-						var json_info = JSON.parse(info);
-						mostrar_mensaje(json_info);
+						//var json_info = JSON.parse(info);
+						//mostrar_mensaje(json_info);
 						limpiar_datos();
 						listar();
 					});

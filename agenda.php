@@ -201,6 +201,7 @@
     </div>
   </div>
 <script>
+var usua = <?php echo $_SESSION['u_usuario'];?>
 var NuevoEvento;
         $('#btnAgregar').click(function(){
             title= $('#txtTitulo').val()
@@ -244,11 +245,12 @@ var NuevoEvento;
               meses:$('#txtMeses').val(),
               material:$('#txtMaterial').val(),
               end:$('#txtFecha').val()+" "+$('#txtHora').val()
-             
+             usua = usua;
           };  
       }
       
       function EnviarInformacion(accion, objEvento,modal){
+          console.log(objEvento);
           $.ajax({
               type:'POST',
               url:'eventos.php?accion='+accion,

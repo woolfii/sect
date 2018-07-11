@@ -172,6 +172,7 @@
 						mostrar_mensaje(json_info);
 						limpiar_datos();
 						listar();
+						
 					});
 			});
 		}
@@ -182,12 +183,13 @@
 				$.ajax({
 					method:"POST",
 					url:"guardarclientes.php",
-					data:{"id_cliente":id_cliente,"opcion":opcion}
+					data:{"id_cliente": id_cliente,"opcion":opcion}
 				}).done(function(info){
-						var json_info = JSON.parse(info);
-						mostrar_mensaje(json_info);
+						//var json_info = JSON.parse(info);
+						//mostrar_mensaje(json_info);
 						limpiar_datos();
-						listar();
+						$('#dt_cl').DataTable().ajax.reload();
+
 					});
 			});
 		}
