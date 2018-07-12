@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>SECT telecomunicaciones</title>
+    <title>Agenda SECT telecomunicaciones..</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="js/jquery.min.js"></script>
     <script src="js/moment.min.js"></script>
@@ -201,7 +201,8 @@
     </div>
   </div>
 <script>
-var usua = <?php echo $_SESSION['u_usuario'];?>
+var usua = "<?php echo $_SESSION['u_usuario'];?>"; 
+
 var NuevoEvento;
         $('#btnAgregar').click(function(){
             title= $('#txtTitulo').val()
@@ -244,8 +245,8 @@ var NuevoEvento;
               cliente:$('#txtCliente').val(),
               meses:$('#txtMeses').val(),
               material:$('#txtMaterial').val(),
-              end:$('#txtFecha').val()+" "+$('#txtHora').val()
-             usua = usua;
+              end:$('#txtFecha').val()+" "+$('#txtHora').val(),
+              usua: usua
           };  
       }
       
