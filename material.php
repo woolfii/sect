@@ -216,7 +216,10 @@
 		}else if( informacion.respuesta == "OPCION_VACIA" ){
 					texto = "<strong>Advertencia!</strong> la opción no existe o esta vacia, recargar la página.";
 					color = "#ddb11d";
-			}
+		}else if( informacion.respuesta == "NOC" ){
+			texto = "<strong>Advertencia!</strong> Existencia debe ser igual a la suma de disponibles y rentados.";
+			color = "#ddb11d";
+		}
 
 		$(".mensaje").html( texto ).css({"color": color });
 		$(".mensaje").fadeOut(5000, function(){

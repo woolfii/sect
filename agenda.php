@@ -26,6 +26,7 @@
 
 </head>
 <body>
+<!-- verifica que exista una sesion, si no lo regresa al formulario de signup para que la inicie -->
 <?php
 			session_start();
 			if(isset($_SESSION['u_usuario'])){
@@ -35,8 +36,8 @@
 			}
 	?>
         <header>
-                <div class="menu_bar">
-                    <a href="#" class="bt-menu"><span class="icon-menu3"></span> MENU </a>
+                <div class="menu_bar"><!-- menu para dispositivos moviles  -->
+                    <a href="#" class="bt-menu"><span class="icon-menu3"></span> MENU </a><!-- menu general-->
                 </div>
                     <nav>
                             <ul>
@@ -53,7 +54,7 @@
             </header>
             <script src="menu.js"></script>
             
-   <div class="container-fluid"> 
+   <div class="container-fluid"> <!-- para que la agenda abarque toda la pantalla disponible -->
         <div class="row">
             <div class="col">  </div>
             <div class="col-12"><div id="CalendarioWeb"></div></div>
@@ -69,7 +70,7 @@
                 center:'today, prev,next',
                 right:'month,basicWeek,basicDay,'
             },
-            customButtons:{
+            customButtons:{//boton que no uso
                 Miboton:{
                     text:"Inventarios",
                     click:function(){
@@ -153,7 +154,7 @@
            
          <input type="hidden" id="txtID" name="txtID">      
           <input type="hidden" id="txtFecha" name="txtFecha" />
-        <div class="form-row">
+        <div class="form-row"><!-- titulo y hora -->
                 <div class="form-group col-md-8">
                     <label>Titulo:</label>
              <input type="text" id="txtTitulo" class="form-control" placeholder="titulo del evento" required>
@@ -165,6 +166,7 @@
                         </div>
                 </div>
             </div>
+            <!-- material y meses -->
             <div class="form-row">
                 <div class="form-group col-md-8">
                     <label>Material:</label>
@@ -233,7 +235,7 @@ var NuevoEvento;
              EnviarInformacion('modificar', NuevoEvento); 
              }
       });
-
+    //recolecto datos del modal para con EnviarInformacion ir a eventos.php y modifificar la BD sectdb.
       function RecolectarDatosGUI(){
              NuevoEvento={
               id:$('#txtID').val(),

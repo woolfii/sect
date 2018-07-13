@@ -11,6 +11,7 @@
 
     switch($opcion){
         case 'registrar':
+        if(($rentados + $disponibles ) == $existencia ){
             if( $nombre != "" && $existencia != "" && $rentados != "" && $disponibles !=""){
                  $existe = existe_material($nombre, $conexion);
                 if($existe >0){
@@ -24,6 +25,11 @@
             $informacion["respuesta"] = "VACIO";
                 echo json_encode($informacion);
             }
+        }else{
+            $informacion["respuesta"] = "NOC";
+                echo json_encode($informacion);
+        }
+            
             break;
         case 'modificar':
             modificar($id_material, $nombre, $existencia, $rentados,  $disponibles, $conexion  );

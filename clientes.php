@@ -17,6 +17,7 @@
 
 </head>
 <body>
+	<!-- comprueba sesion -->
 <?php
 			session_start();
 			if(isset($_SESSION['u_usuario'])){
@@ -26,6 +27,7 @@
 			}
 	?>
 	<header>
+		<!-- menu normal y para dispositivos moviles -->
         <div class="menu_bar">
             <a href="#" class="bt-menu"><span class="icon-menu3"></span> MENU </a>
         </div>
@@ -43,11 +45,11 @@
                     
     </header>
   <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="menu.js"></script>
+    <script src="menu.js"></script><!-- efectos del menu responsive -->
 
 	
 	
-	<div class="row">
+	<div class="row"><!-- cuadro para agregar o modificar a la DB -->
 		<div id="cuadro2" class="col-sm-12 col-md-12 col-lg-12 ocultar" >
 			<form class="form-horizontal" action="" method="POST">
 				<div class="form-group">
@@ -85,7 +87,7 @@
 			
 		</div>
 	</div>
-	<div class="row">
+	<div class="row"><!-- tabla de clientes-->
 		<div id="cuadro1" class="col-sm-12 col-md-12 col-lg-12">
 			<div class="col-sm-offset-2 col-sm-8">
 				<h3 class="text-center"> <small class="mensaje"></small></h3>
@@ -94,7 +96,7 @@
 				<table id="dt_cl" class="table table-bordered table-hover" cellspacing="0" width="100%">
 					<thead>
 						<tr>
-							<th>ID</th>>
+							<th>ID</th>
 							<th>Nombre</th>								
 							<th>RFC</th>
 							<th>Correo</th>
@@ -107,7 +109,7 @@
 		</div>		
 	</div>
 	<div>
-		<form id="frmEliminarCliente" action="" method="POST">
+		<form id="frmEliminarCliente" action="" method="POST"><!-- para comprobar la accion de eliminar -->
 			<input type="hidden" id="id_cliente" name="id_cliente" value="">
 			<input type="hidden" id="opcion" name="opcion" value="eliminar">
 			<!-- Modal -->
@@ -193,6 +195,7 @@
 					});
 			});
 		}
+		//mensajes segun la respuesta de la consulta de la BD
 		var mostrar_mensaje = function( informacion ){
 		var texto = "", color = "";
 		if( informacion.respuesta == "BIEN" ){
@@ -229,7 +232,7 @@
 		}
 
 
-
+//se crea la tabla
 		var listar = function(){
 			
 			$("#cuadro2").slideUp("slow");
@@ -280,7 +283,7 @@
 			$("#cuadro2").slideDown("slow");
 			$("#cuadro1").slideUp("slow");
 		}
-
+// obetemer datos del cuadro 1
 		var obtener_data_editar = function(tbody, table){
 			$(tbody).on("click", "button.editar", function(){
 				var data= table.row($(this).parents("tr")).data();

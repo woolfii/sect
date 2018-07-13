@@ -90,11 +90,12 @@
 			<div class="table-responsive col-sm-12">		
 				<table id="dt_hist" class="table table-bordered table-hover" cellspacing="0" width="100%">
 					<thead>
-						<tr><th>El evento:</th>
+						<tr><th>El dia:</th>
+							<th>El evento:</th>
 							<th>con fecha</th>
 							<th>Fue:</th>
 							<th>Por : </th>
-							<th>El dia:</th>								
+															
 							
 							
 							
@@ -157,17 +158,19 @@
 
 		var listar = function(){
 			var table = $("#dt_hist").DataTable({
+				"order": [[ 0, "desc" ]],
 				"destroy":true,
 				"ajax":{
 					"method":"POST",
 					"url": "listhistorial.php"
 				},
 				"columns":[
+					{"data":"fechahoy"},
 					{"data":"evento"},
 					{"data":"fecha"},
 					{"data":"accion"},
-					{"data":"usuario"},
-					{"data":"fechahoy"}
+					{"data":"usuario"}
+					
 				],
 				"language":idioma_espanol
 			});

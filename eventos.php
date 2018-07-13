@@ -8,6 +8,8 @@ $fecha_actual = date('Y-m-d H:i:s');
 $agreg = 'agregado';
 $elimino = 'eliminado';
 $modifico = 'modificado';
+//EnviarInformacion envia la inf. del modal y manda tambien una accion para que haga la consulta requerida
+//cada case registra ademas la accion en la tabla historial de BD sectdb
 switch($accion){
     case 'agregar':
         $sentenciaSQL = $pdo->prepare("insert into eventos(id,title,start,descripcion,
