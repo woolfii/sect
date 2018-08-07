@@ -207,7 +207,7 @@ var usua = "<?php echo $_SESSION['u_usuario'];?>";
 
 var NuevoEvento;
         $('#btnAgregar').click(function(){
-            title= $('#txtTitulo').val()
+            title = $('#txtTitulo').val()
             if(title==""){
                 alert("Necesitas minimamente brindar un titulo al evento!");
             }
@@ -253,7 +253,7 @@ var NuevoEvento;
       }
       
       function EnviarInformacion(accion, objEvento,modal){
-          console.log(objEvento);
+          //console.log(objEvento);
           $.ajax({
               type:'POST',
               url:'eventos.php?accion='+accion,
