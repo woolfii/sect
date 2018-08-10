@@ -207,9 +207,26 @@ var usua = "<?php echo $_SESSION['u_usuario'];?>";
 
 var NuevoEvento;
         $('#btnAgregar').click(function(){
-            title = $('#txtTitulo').val()
+            title = $('#txtTitulo').val();
+            meses = $('#txtMeses').val();
+
             if(title==""){
                 alert("Necesitas minimamente brindar un titulo al evento!");
+            }
+            else if(title == "venta")
+            {
+                RecolectarDatosGUI();
+                EnviarInformacion('vender', NuevoEvento);   
+            }
+            else if(title == "renta")
+            {
+                if(meses>0){
+                RecolectarDatosGUI();
+                EnviarInformacion('rentar', NuevoEvento);       
+                }
+                else{
+                    alert("Cuantos meses durara la renta?!");
+                }
             }
             else{
              RecolectarDatosGUI();
